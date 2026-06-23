@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katalog Produk — SWOT Apple Store & Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navbar:#15110c;
+    --brown-900:#37210f;
+    --brown-700:#6b4226;
+    --brown-600:#7c4f2c;
+    --brown-500:#8c5e36;
+    --gold:#c9a368;
+    --cream:#f5f1e8;
+    --cream-deep:#ece5d4;
+    --paper:#ffffff;
+    --ink:#181310;
+    --ink-soft:#5b5247;
+    --line:#e7e1d4;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  ul{list-style:none;}
+
+  /* ---------- NAVBAR ---------- */
+  .navbar{
+    position:sticky;top:0;z-index:100;
+    background:var(--navbar);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 48px;
+    transition:padding .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .navbar.scrolled{
+    padding:12px 48px;
+    box-shadow:0 12px 30px -18px rgba(0,0,0,.6);
+  }
+  .brand{display:flex;flex-direction:column;line-height:1;gap:3px;}
+  .brand-name{
+    font-family:'Playfair Display',serif;
+    font-weight:800;
+    font-size:22px;
+    color:#fff;
+    letter-spacing:.5px;
+  }
+  .brand-tag{
+    font-size:10px;
+    letter-spacing:2px;
+    color:var(--gold);
+    font-weight:600;
+  }
+  .nav-links{display:flex;gap:36px;}
+  .nav-links a{
+    color:#cfc8bd;
+    font-size:14.5px;
+    font-weight:500;
+    position:relative;
+    padding-bottom:4px;
+    transition:color .25s var(--ease);
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:0;
+    width:0;height:1px;background:var(--gold);
+    transition:width .3s var(--ease);
+  }
+  .nav-links a:hover{color:#fff;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a.active{color:#fff;}
+  .nav-links a.active::after{width:100%;}
+
+  .nav-actions{display:flex;align-items:center;gap:10px;}
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:#e8e2d6;
+    transition:background .25s var(--ease), transform .25s var(--ease);
+  }
+  .icon-btn:hover{background:rgba(255,255,255,.08);transform:translateY(-1px);}
+  .icon-btn svg{width:18px;height:18px;}
+  .badge-count{
+    position:absolute;top:-2px;right:-2px;
+    background:var(--gold);color:#1a1410;
+    font-size:9px;font-weight:800;
+    width:15px;height:15px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .icon-btn{position:relative;}
+
+  .btn-primary{
+    background:var(--brown-700);
+    color:#fdf8ef;
+    font-size:13.5px;font-weight:700;letter-spacing:.5px;
+    padding:11px 22px;border-radius:999px;
+    margin-left:8px;
+    transition:transform .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .btn-primary:hover{
+    background:#7c4d2a;
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px -10px rgba(107,66,38,.7);
+  }
+
+  /* mobile nav toggle */
+  .nav-toggle{display:none;}
+
+  /* ---------- TRUST STRIP ---------- */
+  .trust-strip{
+    background:linear-gradient(115deg,#2c1a0d 0%,var(--brown-700) 55%,#7a4d2a 100%);
+    display:flex;flex-wrap:wrap;
+    padding:22px 48px;
+    gap:28px;
+  }
+  .trust-item{
+    display:flex;align-items:center;gap:14px;
+    flex:1 1 220px;
+    opacity:0;transform:translateY(10px);
+    animation:fadeUp .6s var(--ease) forwards;
+  }
+  .trust-item:nth-child(1){animation-delay:.05s;}
+  .trust-item:nth-child(2){animation-delay:.12s;}
+  .trust-item:nth-child(3){animation-delay:.19s;}
+  .trust-item:nth-child(4){animation-delay:.26s;}
+  .trust-icon{
+    width:42px;height:42px;border-radius:11px;
+    background:rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    transition:background .25s var(--ease), transform .25s var(--ease);
+  }
+  .trust-item:hover .trust-icon{background:rgba(255,255,255,.22);transform:scale(1.06);}
+  .trust-icon svg{width:19px;height:19px;stroke:#fdf8ef;}
+  .trust-title{color:#fff;font-size:14px;font-weight:700;}
+  .trust-desc{color:#e3d6c4;font-size:12.5px;margin-top:1px;}
+
+  /* ---------- BREADCRUMB ---------- */
+  .breadcrumb{
+    padding:18px 48px 0;
+    font-size:13px;color:var(--ink-soft);
+    display:flex;align-items:center;gap:6px;
+  }
+  .breadcrumb a{color:var(--ink-soft);transition:color .2s;}
+  .breadcrumb a:hover{color:var(--brown-700);}
+  .breadcrumb .sep{opacity:.5;}
+  .breadcrumb .current{color:var(--ink);font-weight:600;}
+
+  /* ---------- CATALOG HERO ---------- */
+  .catalog-hero{
+    padding:28px 48px 0;
+  }
+  .eyebrow{
+    display:flex;align-items:center;gap:10px;
+    font-size:12px;font-weight:700;letter-spacing:3px;
+    color:var(--brown-700);
+    margin-bottom:14px;
+    opacity:0;transform:translateY(8px);
+    animation:fadeUp .6s var(--ease) forwards;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--brown-700);}
+  .hero-title{
+    font-family:'Playfair Display',serif;
+    font-weight:800;
+    font-size:clamp(32px,4vw,46px);
+    letter-spacing:-.5px;
+    color:var(--ink);
+    margin-bottom:12px;
+    opacity:0;transform:translateY(10px);
+    animation:fadeUp .65s var(--ease) forwards;
+    animation-delay:.08s;
+  }
+  .hero-subtitle{
+    max-width:620px;
+    color:var(--ink-soft);
+    font-size:15.5px;
+    line-height:1.6;
+    opacity:0;transform:translateY(10px);
+    animation:fadeUp .65s var(--ease) forwards;
+    animation-delay:.16s;
+  }
+
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- TOOLBAR ---------- */
+  .catalog-toolbar{
+    margin:30px 48px 0;
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    gap:18px;flex-wrap:wrap;
+  }
+  .result-count{font-size:14px;color:var(--ink-soft);}
+  .result-count strong{color:var(--ink);}
+  .toolbar-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+
+  .search-box{
+    display:flex;align-items:center;gap:8px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 16px;
+    transition:border-color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .search-box:focus-within{
+    border-color:var(--brown-500);
+    box-shadow:0 0 0 3px rgba(107,66,38,.12);
+  }
+  .search-box svg{width:15px;height:15px;stroke:var(--ink-soft);flex-shrink:0;}
+  .search-box input{
+    border:none;background:transparent;outline:none;
+    font-size:13.5px;width:170px;color:var(--ink);
+  }
+
+  .sort-select{
+    appearance:none;
+    background:var(--paper) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%235b5247" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>') no-repeat right 12px center;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 36px 9px 16px;
+    font-size:13.5px;font-weight:500;color:var(--ink);
+    transition:border-color .25s var(--ease);
+    cursor:pointer;
+  }
+  .sort-select:hover{border-color:var(--brown-500);}
+
+  .filter-toggle-btn{
+    display:none;
+    align-items:center;gap:8px;
+    background:var(--ink);color:#fff;
+    border-radius:999px;
+    padding:9px 18px;font-size:13.5px;font-weight:600;
+  }
+  .filter-toggle-btn svg{width:14px;height:14px;}
+
+  /* ---------- LAYOUT ---------- */
+  .catalog-layout{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    gap:36px;
+    padding:28px 48px 60px;
+    align-items:start;
+  }
+
+  /* ---------- FILTERS ---------- */
+  .filters{
+    position:sticky;top:96px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px;
+  }
+  .filter-section{margin-bottom:24px;}
+  .filter-section:last-of-type{margin-bottom:18px;}
+  .filter-section-title{
+    display:flex;align-items:center;gap:10px;
+    font-size:12px;font-weight:800;letter-spacing:1px;
+    text-transform:uppercase;color:var(--ink);
+    margin-bottom:14px;
+  }
+  .filter-icon-sq{
+    width:24px;height:24px;border-radius:7px;
+    background:var(--cream-deep);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .filter-icon-sq svg{width:12px;height:12px;stroke:var(--brown-700);}
+
+  .filter-option{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:8px 2px;
+    cursor:pointer;
+    font-size:13.5px;color:var(--ink-soft);
+    transition:color .2s var(--ease);
+  }
+  .filter-option:hover{color:var(--ink);}
+  .filter-option-left{display:flex;align-items:center;gap:10px;}
+  .filter-option input{display:none;}
+  .chk{
+    width:16px;height:16px;border-radius:5px;
+    border:1.5px solid #cfc6b3;
+    background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s var(--ease), border-color .2s var(--ease);
+    flex-shrink:0;
+  }
+  .chk svg{width:9px;height:9px;opacity:0;transform:scale(.5);transition:opacity .15s, transform .15s;stroke:#fff;}
+  .filter-option input:checked + .chk{background:var(--brown-700);border-color:var(--brown-700);}
+  .filter-option input:checked + .chk svg{opacity:1;transform:scale(1);}
+  .rad{
+    width:16px;height:16px;border-radius:50%;
+    border:1.5px solid #cfc6b3;background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .rad::after{
+    content:"";width:8px;height:8px;border-radius:50%;
+    background:var(--brown-700);
+    transform:scale(0);transition:transform .18s var(--ease);
+  }
+  .filter-option input:checked + .rad::after{transform:scale(1);}
+  .filter-count{font-size:12px;color:#a89c87;}
+
+  .reset-filters{
+    font-size:12.5px;font-weight:700;color:var(--brown-700);
+    display:flex;align-items:center;gap:6px;
+    padding-top:4px;
+    transition:opacity .2s;
+  }
+  .reset-filters:hover{opacity:.7;}
+  .reset-filters svg{width:12px;height:12px;}
+
+  /* ---------- PRODUCT GRID ---------- */
+  .product-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .product-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), opacity .5s var(--ease);
+    opacity:0;transform:translateY(18px);
+  }
+  .product-card.in-view{opacity:1;transform:translateY(0);}
+  .product-card:hover{
+    transform:translateY(-7px);
+    box-shadow:0 24px 38px -22px rgba(20,15,10,.28);
+  }
+  .product-card.is-hidden{
+    display:none;
+  }
+
+  .card-media{
+    position:relative;
+    aspect-ratio:1/1;
+    background:linear-gradient(145deg,var(--cream) 0%,var(--cream-deep) 100%);
+    overflow:hidden;
+  }
+  .card-media img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .55s var(--ease);
+  }
+  .product-card:hover .card-media img{transform:scale(1.07);}
+  .img-placeholder-mark{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;color:#b8ab92;
+    pointer-events:none;
+  }
+  .img-placeholder-mark svg{width:30px;height:30px;stroke:#cbbfa4;opacity:.7;}
+  .img-placeholder-mark span{font-size:10.5px;font-weight:600;letter-spacing:1px;opacity:.8;}
+
+  .badge{
+    position:absolute;top:12px;left:12px;
+    background:var(--ink);color:#fff;
+    font-size:10px;font-weight:800;letter-spacing:1px;
+    padding:5px 10px;border-radius:5px;
+    text-transform:uppercase;
+    z-index:2;
+  }
+  .badge.promo{background:var(--brown-700);}
+
+  .card-body{
+    padding:16px 16px 18px;
+    display:flex;flex-direction:column;gap:6px;flex:1;
+  }
+  .card-cat{font-size:10.5px;font-weight:700;letter-spacing:1px;color:var(--gold-text,#a8763f);text-transform:uppercase;}
+  .card-name{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3;}
+  .card-specs{font-size:12.5px;color:var(--ink-soft);line-height:1.4;flex:1;}
+  .price-row{display:flex;align-items:baseline;gap:8px;margin-top:6px;}
+  .price-now{font-size:16px;font-weight:800;color:var(--ink);}
+  .price-old{font-size:12.5px;color:#a89c87;text-decoration:line-through;}
+
+  .add-btn{
+    margin-top:10px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    color:var(--ink);
+    font-size:13px;font-weight:700;
+    padding:10px 12px;border-radius:9px;
+    transition:background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .2s var(--ease);
+  }
+  .add-btn svg{width:14px;height:14px;transition:transform .25s var(--ease);}
+  .add-btn:hover{
+    background:var(--brown-700);
+    color:#fff;border-color:var(--brown-700);
+  }
+  .add-btn:hover svg{transform:translateX(2px);}
+  .add-btn:active{transform:scale(.97);}
+
+  .empty-state{
+    grid-column:1/-1;
+    text-align:center;
+    padding:70px 20px;
+    color:var(--ink-soft);
+    display:none;
+  }
+  .empty-state.show{display:block;}
+  .empty-state svg{width:42px;height:42px;stroke:#cfc6b3;margin-bottom:14px;}
+  .empty-state h3{font-size:17px;color:var(--ink);margin-bottom:6px;}
+  .empty-state p{font-size:13.5px;}
+
+  /* ---------- PAGINATION ---------- */
+  .pagination{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:46px 48px 70px;
+  }
+  .page-btn{
+    width:38px;height:38px;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13.5px;font-weight:600;color:var(--ink-soft);
+    border:1px solid var(--line);
+    transition:background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .page-btn:hover{border-color:var(--brown-500);color:var(--ink);}
+  .page-btn.active{background:var(--brown-700);color:#fff;border-color:var(--brown-700);}
+  .page-btn.nav-arrow svg{width:14px;height:14px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navbar);color:#cfc8bd;padding:54px 48px 24px;}
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;
+    padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .footer-brand .brand-name{margin-bottom:10px;}
+  .footer-blurb{font-size:13px;line-height:1.7;color:#a79f91;max-width:280px;}
+  .footer-col h4{font-size:13px;color:#fff;margin-bottom:14px;letter-spacing:.5px;}
+  .footer-col ul li{margin-bottom:10px;}
+  .footer-col ul li a{font-size:13.5px;color:#a79f91;transition:color .2s;}
+  .footer-col ul li a:hover{color:var(--gold);}
+  .footer-bottom{
+    padding-top:20px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:12.5px;color:#857c6d;flex-wrap:wrap;gap:10px;
+  }
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .wa-float{
+    position:fixed;bottom:26px;right:26px;z-index:200;
+    width:56px;height:56px;border-radius:50%;
+    background:#25D366;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 24px -8px rgba(37,211,102,.6);
+    animation:popIn .5s var(--ease) .4s backwards, floatPulse 2.6s ease-in-out 1.2s infinite;
+    transition:transform .25s var(--ease);
+  }
+  .wa-float:hover{transform:scale(1.08);}
+  .wa-float svg{width:28px;height:28px;fill:#fff;}
+  @keyframes popIn{from{opacity:0;transform:scale(.4);}to{opacity:1;transform:scale(1);}}
+  @keyframes floatPulse{0%,100%{box-shadow:0 10px 24px -8px rgba(37,211,102,.6);}50%{box-shadow:0 10px 30px -4px rgba(37,211,102,.85);}}
+
+  /* ---------- OVERLAY (mobile filter drawer) ---------- */
+  .drawer-overlay{
+    position:fixed;inset:0;background:rgba(15,12,9,.45);
+    z-index:150;opacity:0;pointer-events:none;
+    transition:opacity .3s var(--ease);
+  }
+  .drawer-overlay.show{opacity:1;pointer-events:auto;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .catalog-layout{grid-template-columns:1fr;}
+    .filters{
+      position:fixed;top:0;left:0;height:100%;width:280px;
+      border-radius:0;z-index:160;
+      transform:translateX(-105%);
+      transition:transform .35s var(--ease);
+      overflow-y:auto;
+    }
+    .filters.open{transform:translateX(0);}
+    .filter-toggle-btn{display:flex;}
+    .nav-links{display:none;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    .navbar{padding:16px 20px;}
+    .navbar.scrolled{padding:10px 20px;}
+    .trust-strip{padding:18px 20px;}
+    .breadcrumb,.catalog-hero,.catalog-toolbar,.catalog-layout,.pagination{padding-left:20px;padding-right:20px;}
+    .product-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
+    .search-box input{width:110px;}
+    .footer-grid{grid-template-columns:1fr;}
+    footer{padding:40px 20px 20px;}
+    .toolbar-actions{width:100%;justify-content:space-between;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+<noscript><style>.product-card{opacity:1!important;transform:none!important;}.trust-item{opacity:1!important;transform:none!important;}.eyebrow,.hero-title,.hero-subtitle{opacity:1!important;transform:none!important;}</style></noscript>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar" id="navbar">
+  <div class="brand">
+    <span class="brand-name">SWOT</span>
+    <span class="brand-tag">APPLE STORE &amp; SERVICE</span>
+  </div>
+
+  <nav class="nav-links">
+    <a href="#">Home</a>
+    <a href="#" class="active">Beli iPhone</a>
+    <a href="#">Beli Mac</a>
+    <a href="#">Aksesoris</a>
+    <a href="#">Service</a>
+    <a href="#">Blog</a>
+  </nav>
+
+  <div class="nav-actions">
+    <button class="icon-btn" id="searchIconBtn" aria-label="Cari produk">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Akun saya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Keranjang belanja">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="badge-count">2</span>
+    </button>
+    <button class="btn-primary">JUAL HP</button>
+  </div>
+</header>
+
+<!-- ================= TRUST STRIP ================= -->
+<section class="trust-strip">
+  <div class="trust-item">
+    <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div>
+      <div class="trust-title">Garansi 1 Tahun</div>
+      <div class="trust-desc">Semua produk bergaransi</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div>
+    <div>
+      <div class="trust-title">Tukar Tambah</div>
+      <div class="trust-desc">Proses mudah &amp; cepat</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
+    <div>
+      <div class="trust-title">Produk Original</div>
+      <div class="trust-desc">100% resmi bergaransi</div>
+    </div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <div>
+      <div class="trust-title">Service Cepat</div>
+      <div class="trust-desc">Selesai dalam 1–2 jam</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BREADCRUMB ================= -->
+<div class="breadcrumb">
+  <a href="#">Home</a>
+  <span class="sep">/</span>
+  <span class="current">Katalog</span>
+</div>
+
+<!-- ================= CATALOG HERO ================= -->
+<section class="catalog-hero">
+  <div class="eyebrow">KOLEKSI LENGKAP</div>
+  <h1 class="hero-title">Katalog Produk Apple</h1>
+  <p class="hero-subtitle">Pilih iPhone, Mac, iPad, Apple Watch, dan aksesoris original — semua bergaransi resmi 1 tahun dengan opsi tukar tambah.</p>
+</section>
+
+<!-- ================= TOOLBAR ================= -->
+<div class="catalog-toolbar">
+  <div class="result-count"><strong id="resultCount">13</strong> produk ditemukan</div>
+  <div class="toolbar-actions">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Cari produk...">
+    </div>
+    <select class="sort-select" id="sortSelect">
+      <option value="default">Urutkan: Terbaru</option>
+      <option value="price-asc">Harga Terendah</option>
+      <option value="price-desc">Harga Tertinggi</option>
+      <option value="popular">Terlaris</option>
+    </select>
+    <button class="filter-toggle-btn" id="filterToggleBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/></svg>
+      Filter
+    </button>
+  </div>
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+
+<!-- ================= LAYOUT ================= -->
+<div class="catalog-layout">
+
+  <!-- FILTERS -->
+  <aside class="filters" id="filtersPanel">
+    <div class="filter-section">
+      <div class="filter-section-title">
+        <span class="filter-icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18l-7 9v6l-4 2v-8L3 3Z"/></svg></span>
+        Kategori
+      </div>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="checkbox" class="f-cat" value="iphone" checked><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>iPhone</span>
+        <span class="filter-count">4</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="checkbox" class="f-cat" value="mac" checked><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Mac</span>
+        <span class="filter-count">3</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="checkbox" class="f-cat" value="ipad" checked><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>iPad</span>
+        <span class="filter-count">2</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="checkbox" class="f-cat" value="watch" checked><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Apple Watch</span>
+        <span class="filter-count">2</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="checkbox" class="f-cat" value="aksesoris" checked><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Aksesoris</span>
+        <span class="filter-count">2</span>
+      </label>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-section-title">
+        <span class="filter-icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg></span>
+        Rentang Harga
+      </div>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="radio" name="f-price" class="f-price" value="all" checked><span class="rad"></span>Semua Harga</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="radio" name="f-price" class="f-price" value="0-5000000"><span class="rad"></span>Di bawah Rp5jt</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="radio" name="f-price" class="f-price" value="5000000-15000000"><span class="rad"></span>Rp5jt – Rp15jt</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="radio" name="f-price" class="f-price" value="15000000-30000000"><span class="rad"></span>Rp15jt – Rp30jt</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="radio" name="f-price" class="f-price" value="30000000-999999999"><span class="rad"></span>Di atas Rp30jt</span>
+      </label>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-section-title">
+        <span class="filter-icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+        Status
+      </div>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="checkbox" class="f-status" value="promo"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Promo</span>
+      </label>
+      <label class="filter-option">
+        <span class="filter-option-left"><input type="checkbox" class="f-status" value="baru"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Baru</span>
+      </label>
+    </div>
+
+    <button class="reset-filters" id="resetFilters">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+      Reset Filter
+    </button>
+  </aside>
+
+  <!-- PRODUCT GRID -->
+  <section class="product-grid" id="productGrid">
+
+    <article class="product-card" data-category="iphone" data-price="13499000" data-status="baru" data-pop="9">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+        </div>
+        <img src="asset/15.png" alt="iPhone 15 128GB" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge">Baru</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">iPhone</span>
+        <h3 class="card-name">iPhone 15 128GB</h3>
+        <p class="card-specs">6.1" Super Retina XDR · A16 Bionic</p>
+        <div class="price-row"><span class="price-now">Rp 13.499.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="iphone" data-price="21999000" data-status="promo" data-pop="10">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+        </div>
+        <img src="asset/15pm.webp" alt="iPhone 15 Pro Max 256GB" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge promo">Promo</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">iPhone</span>
+        <h3 class="card-name">iPhone 15 Pro Max 256GB</h3>
+        <p class="card-specs">6.7" ProMotion · A17 Pro · Titanium</p>
+        <div class="price-row"><span class="price-now">Rp 21.999.000</span><span class="price-old">Rp 23.999.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="iphone" data-price="11499000" data-status="reguler" data-pop="7">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+
+        </div>
+        <img src="asset/14pm.jpg" alt="iPhone 14 Pro Max 1TB" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <span class="card-cat">iPhone</span>
+        <h3 class="card-name">iPhone 14 Pro Max 1TB</h3>
+        <p class="card-specs">6.1" Super Retina XDR · A15 Bionic</p>
+        <div class="price-row"><span class="price-now">Rp 21.499.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="iphone" data-price="8999000" data-status="reguler" data-pop="6">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+
+        </div>
+        <img src="asset/13biasa.webp" alt="iPhone 13 128GB" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <span class="card-cat">iPhone</span>
+        <h3 class="card-name">iPhone 13 128GB</h3>
+        <p class="card-specs">6.1" Super Retina XDR · A15 Bionic</p>
+        <div class="price-row"><span class="price-now">Rp 8.999.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="mac" data-price="16999000" data-status="promo" data-pop="8">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+
+        </div>
+        <img src="asset/mc.png" alt="MacBook Air M2 13 inch" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge promo">Promo</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">Mac</span>
+        <h3 class="card-name">MacBook Air M2 13"</h3>
+        <p class="card-specs">8-core CPU · 8GB RAM · 256GB SSD</p>
+        <div class="price-row"><span class="price-now">Rp 16.999.000</span><span class="price-old">Rp 18.499.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="mac" data-price="27999000" data-status="baru" data-pop="9">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+        </div>
+        <img src="asset/macbbok pro.webp" alt="MacBook Pro 14 inch M3" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge">Baru</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">Mac</span>
+        <h3 class="card-name">MacBook Pro 14" M3</h3>
+        <p class="card-specs">11-core CPU · 18GB RAM · 512GB SSD</p>
+        <div class="price-row"><span class="price-now">Rp 27.999.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="mac" data-price="22499000" data-status="reguler" data-pop="5">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+
+        </div>
+        <img src="asset/xr.jpg" alt="iMac 24 inch M3" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <span class="card-cat">iPhone</span>
+        <h3 class="card-name">iPhone Xr</h3>
+        <p class="card-specs">A19 Pro Bionic · 8GB RAM · 256GB SSD</p>
+        <div class="price-row"><span class="price-now">Rp 22.499.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="ipad" data-price="9999000" data-status="promo" data-pop="7">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+
+        </div>
+        <img src="asset/ipadair.webp" alt="iPad Air M2" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge promo">Promo</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">iPad</span>
+        <h3 class="card-name">iPad Air M2</h3>
+        <p class="card-specs">10.9" Liquid Retina · Wi-Fi 64GB</p>
+        <div class="price-row"><span class="price-now">Rp 9.999.000</span><span class="price-old">Rp 10.999.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="ipad" data-price="17999000" data-status="baru" data-pop="8">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+
+        </div>
+        <img src="asset/ipadpro.webp" alt="iPad Pro 11 inch M4" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge">Baru</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">iPad</span>
+        <h3 class="card-name">iPad Pro 11" M4</h3>
+        <p class="card-specs">Ultra Retina XDR · Wi-Fi 256GB</p>
+        <div class="price-row"><span class="price-now">Rp 17.999.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="watch" data-price="14999000" data-status="baru" data-pop="9">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+
+        </div>
+        <img src="asset/applewatch ultra.webp" alt="Apple Watch Ultra 2" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge">Baru</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">Apple Watch</span>
+        <h3 class="card-name">Apple Watch Ultra 2</h3>
+        <p class="card-specs">49mm Titanium · GPS + Cellular</p>
+        <div class="price-row"><span class="price-now">Rp 14.999.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="watch" data-price="4999000" data-status="promo" data-pop="6">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+
+        </div>
+        <img src="asset/apwa fe.webp" alt="Apple Watch SE" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge promo">Promo</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">Apple Watch</span>
+        <h3 class="card-name">Apple Watch SE</h3>
+        <p class="card-specs">44mm Aluminium · GPS</p>
+        <div class="price-row"><span class="price-now">Rp 4.999.000</span><span class="price-old">Rp 5.499.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="aksesoris" data-price="3799000" data-status="promo" data-pop="10">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+        </div>
+        <img src="asset/airpod.jpeg" alt="AirPods Pro 2" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+        <span class="badge promo">Promo</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">Aksesoris</span>
+        <h3 class="card-name">AirPods Pro 2</h3>
+        <p class="card-specs">Active Noise Cancellation · USB-C</p>
+        <div class="price-row"><span class="price-now">Rp 3.799.000</span><span class="price-old">Rp 4.199.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="aksesoris" data-price="7499000" data-status="reguler" data-pop="5">
+      <div class="card-media">
+        <div class="img-placeholder-mark">
+        </div>
+        <img src="asset/apple_airpods_max_usb-c_midnight_1.jpg" alt="AirPods Max" width="400" height="400" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <span class="card-cat">Aksesoris</span>
+        <h3 class="card-name">AirPods Max</h3>
+        <p class="card-specs">Over-Ear · Active Noise Cancellation</p>
+        <div class="price-row"><span class="price-now">Rp 7.499.000</span></div>
+        <button class="add-btn">Tambah ke Keranjang <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </article>
+
+    <div class="empty-state" id="emptyState">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <h3>Produk tidak ditemukan</h3>
+      <p>Coba ubah kata kunci atau atur ulang filter kamu.</p>
+    </div>
+
+  </section>
+</div>
+
+<!-- ================= PAGINATION ================= -->
+<div class="pagination">
+  <button class="page-btn nav-arrow" aria-label="Sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <button class="page-btn active">1</button>
+  <button class="page-btn">2</button>
+  <button class="page-btn">3</button>
+  <button class="page-btn nav-arrow" aria-label="Berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="brand-name" style="color:#fff;">SWOT</span>
+      <p class="footer-blurb">Apple Store & Service terpercaya — produk original bergaransi resmi dan layanan service cepat untuk semua perangkat Apple kamu.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Belanja</h4>
+      <ul>
+        <li><a href="#">Beli iPhone</a></li>
+        <li><a href="#">Beli Mac</a></li>
+        <li><a href="#">Beli iPad</a></li>
+        <li><a href="#">Aksesoris</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Layanan</h4>
+      <ul>
+        <li><a href="#">Service iPhone</a></li>
+        <li><a href="#">Tukar Tambah</a></li>
+        <li><a href="#">Garansi</a></li>
+        <li><a href="#">Cek Status Service</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Hubungi Kami</h4>
+      <ul>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Lokasi Toko</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 SWOT Apple Store & Service. Semua hak dilindungi.</span>
+    <span>Dibuat dengan ♥ untuk pengguna Apple Indonesia</span>
+  </div>
+</footer>
+
+<!-- ================= WHATSAPP FLOAT ================= -->
+<a href="#" class="wa-float" aria-label="Chat WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.52 0-10 4.48-10 10 0 1.77.46 3.43 1.27 4.88L2 22l5.25-1.38c1.4.76 3 1.18 4.79 1.18 5.52 0 10-4.48 10-10s-4.48-10-10-10zm5.84 14.13c-.25.7-1.45 1.34-2 1.42-.5.08-1.14.11-1.84-.12-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.18-4.93-4.37-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1-2.41.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.25.6.84 2.07.91 2.22.07.15.12.33.02.53-.1.2-.16.32-.31.49-.15.17-.31.38-.45.51-.15.14-.3.3-.13.59.17.29.78 1.27 1.67 2.06 1.15 1.02 2.12 1.34 2.42 1.49.3.15.48.13.65-.05.18-.19.74-.85.94-1.14.2-.29.4-.24.67-.14.27.1 1.74.82 2.04.97.3.15.5.22.57.35.07.13.07.74-.18 1.44Z"/></svg>
+</a>
+
+<script>
+  // ---------- sticky navbar shadow on scroll ----------
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
+  // ---------- header search icon -> focus catalog search ----------
+  document.getElementById('searchIconBtn').addEventListener('click', () => {
+    const input = document.getElementById('searchInput');
+    input.scrollIntoView({behavior:'smooth', block:'center'});
+    setTimeout(()=>input.focus(), 250);
+  });
+
+  // ---------- scroll reveal for product cards ----------
+  const cards = Array.from(document.querySelectorAll('.product-card'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const card = entry.target;
+          if (!card.classList.contains('in-view')) {
+            card.style.transitionDelay = reduceMotion ? '0s' : (i % 6) * 0.06 + 's';
+            card.classList.add('in-view');
+          }
+          revealObserver.unobserve(card);
+        }
+      });
+    }, {threshold:.12});
+    cards.forEach(c => revealObserver.observe(c));
+  } else {
+    // fallback: no IntersectionObserver support, just show all cards
+    cards.forEach(c => c.classList.add('in-view'));
+  }
+
+  // ---------- filter / sort / search logic ----------
+  const grid = document.getElementById('productGrid');
+  const emptyState = document.getElementById('emptyState');
+  const resultCount = document.getElementById('resultCount');
+  const searchInput = document.getElementById('searchInput');
+  const sortSelect = document.getElementById('sortSelect');
+  const catBoxes = Array.from(document.querySelectorAll('.f-cat'));
+  const statusBoxes = Array.from(document.querySelectorAll('.f-status'));
+  const priceRadios = Array.from(document.querySelectorAll('.f-price'));
+
+  function currentFilters(){
+    const cats = catBoxes.filter(b=>b.checked).map(b=>b.value);
+    const statuses = statusBoxes.filter(b=>b.checked).map(b=>b.value);
+    const priceVal = priceRadios.find(r=>r.checked).value;
+    const [min,max] = priceVal === 'all' ? [0, Infinity] : priceVal.split('-').map(Number);
+    return {cats, statuses, min, max, q: searchInput.value.trim().toLowerCase()};
+  }
+
+  function applyFilters(){
+    const {cats, statuses, min, max, q} = currentFilters();
+    let visible = 0;
+    cards.forEach(card => {
+      const cat = card.dataset.category;
+      const price = Number(card.dataset.price);
+      const status = card.dataset.status;
+      const name = card.querySelector('.card-name').textContent.toLowerCase();
+
+      const matchCat = cats.includes(cat);
+      const matchPrice = price >= min && price <= max;
+      const matchStatus = statuses.length === 0 || statuses.includes(status);
+      const matchSearch = !q || name.includes(q);
+
+      const show = matchCat && matchPrice && matchStatus && matchSearch;
+      card.classList.toggle('is-hidden', !show);
+      if (show) visible++;
+    });
+    resultCount.textContent = visible;
+    emptyState.classList.toggle('show', visible === 0);
+  }
+
+  function applySort(){
+    const mode = sortSelect.value;
+    const sorted = [...cards];
+    if (mode === 'price-asc') sorted.sort((a,b)=>a.dataset.price - b.dataset.price);
+    else if (mode === 'price-desc') sorted.sort((a,b)=>b.dataset.price - a.dataset.price);
+    else if (mode === 'popular') sorted.sort((a,b)=>b.dataset.pop - a.dataset.pop);
+    sorted.forEach(card => grid.insertBefore(card, emptyState));
+  }
+
+  [...catBoxes, ...statusBoxes, ...priceRadios].forEach(el => el.addEventListener('change', applyFilters));
+  searchInput.addEventListener('input', applyFilters);
+  sortSelect.addEventListener('change', () => { applySort(); });
+
+  document.getElementById('resetFilters').addEventListener('click', () => {
+    catBoxes.forEach(b => b.checked = true);
+    statusBoxes.forEach(b => b.checked = false);
+    priceRadios[0].checked = true;
+    searchInput.value = '';
+    sortSelect.value = 'default';
+    applySort();
+    applyFilters();
+  });
+
+  // ---------- mobile filter drawer ----------
+  const filtersPanel = document.getElementById('filtersPanel');
+  const drawerOverlay = document.getElementById('drawerOverlay');
+  const filterToggleBtn = document.getElementById('filterToggleBtn');
+
+  function openDrawer(){ filtersPanel.classList.add('open'); drawerOverlay.classList.add('show'); }
+  function closeDrawer(){ filtersPanel.classList.remove('open'); drawerOverlay.classList.remove('show'); }
+
+  filterToggleBtn.addEventListener('click', openDrawer);
+  drawerOverlay.addEventListener('click', closeDrawer);
+</script>
+
+</body>
+</html>

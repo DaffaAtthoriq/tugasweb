@@ -6,6 +6,7 @@
    ============================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* ── Reset & Base ───────────────────────────── */
 *, *::before, *::after {
@@ -59,7 +60,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.5px;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
   transition: all 0.2s;
 }
@@ -111,7 +112,7 @@ nav {
 }
 
 .nav-logo {
-  font-family: 'Playfair Display', serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 22px;
   font-weight: 700;
   color: var(--cream);
@@ -222,7 +223,7 @@ nav {
 }
 
 .hero-title {
-  font-family: 'Playfair Display', serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 54px;
   font-weight: 800;
   color: var(--white);

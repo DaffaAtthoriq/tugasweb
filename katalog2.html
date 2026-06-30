@@ -507,6 +507,113 @@
   }
 </style>
 <noscript><style>.product-card{opacity:1!important;transform:none!important;}.trust-item{opacity:1!important;transform:none!important;}.eyebrow,.hero-title,.hero-subtitle{opacity:1!important;transform:none!important;}</style></noscript>
+
+<!-- ===== TAMBAHAN FITUR: toast keranjang, modal produk, status stok ===== -->
+<style>
+  .product-card{cursor:pointer;}
+
+  /* ---------- TOAST NOTIFICATION ---------- */
+  .toast-notif{
+    position:fixed;left:50%;bottom:32px;
+    transform:translate(-50%,20px);
+    background:var(--ink);
+    color:#fdf8ef;
+    font-size:13.5px;font-weight:600;
+    padding:13px 22px;border-radius:999px;
+    box-shadow:0 16px 30px -12px rgba(0,0,0,.45);
+    display:flex;align-items:center;gap:10px;
+    z-index:400;
+    opacity:0;pointer-events:none;
+    transition:opacity .3s var(--ease), transform .3s var(--ease);
+  }
+  .toast-notif.show{opacity:1;transform:translate(-50%,0);pointer-events:auto;}
+  .toast-notif::before{
+    content:"";width:8px;height:8px;border-radius:50%;
+    background:#7fd99a;flex-shrink:0;
+  }
+
+  /* ---------- PRODUCT MODAL ---------- */
+  .product-modal-overlay{
+    position:fixed;inset:0;z-index:500;
+    background:rgba(15,12,9,.55);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    opacity:0;pointer-events:none;
+    transition:opacity .3s var(--ease);
+  }
+  .product-modal-overlay.show{opacity:1;pointer-events:auto;}
+  .product-modal{
+    background:var(--paper);
+    border-radius:18px;
+    width:100%;max-width:640px;
+    max-height:88vh;overflow-y:auto;
+    display:grid;grid-template-columns:1fr 1fr;
+    position:relative;
+    transform:scale(.94) translateY(10px);
+    transition:transform .3s var(--ease);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  .product-modal-overlay.show .product-modal{transform:scale(1) translateY(0);}
+  .modal-close{
+    position:absolute;top:14px;right:14px;z-index:2;
+    width:32px;height:32px;border-radius:50%;
+    background:rgba(255,255,255,.9);
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;line-height:1;color:var(--ink);
+    box-shadow:0 6px 14px -6px rgba(0,0,0,.3);
+    transition:background .2s var(--ease), transform .2s var(--ease);
+  }
+  .modal-close:hover{background:#fff;transform:scale(1.07);}
+  .modal-img-wrap{
+    background:linear-gradient(145deg,var(--cream) 0%,var(--cream-deep) 100%);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+  }
+  .modal-img{width:100%;height:100%;object-fit:contain;max-height:320px;}
+  .modal-info{
+    padding:28px 26px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .modal-cat{font-size:11px;font-weight:700;letter-spacing:1px;color:#a8763f;text-transform:uppercase;}
+  .modal-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);line-height:1.25;}
+  .modal-specs{font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
+  .modal-price-row{display:flex;align-items:baseline;gap:10px;margin-top:6px;}
+  .modal-price{font-size:21px;font-weight:800;color:var(--ink);}
+  .modal-price-old{font-size:14px;color:#a89c87;text-decoration:line-through;}
+  .modal-buy-btn{
+    margin-top:18px;
+    background:var(--brown-700);color:#fdf8ef;
+    font-size:14px;font-weight:700;letter-spacing:.3px;
+    padding:13px 18px;border-radius:11px;
+    transition:background .25s var(--ease), transform .2s var(--ease);
+  }
+  .modal-buy-btn:hover{background:#7c4d2a;}
+  .modal-buy-btn:active{transform:scale(.98);}
+  .modal-stock-msg{
+    margin-top:18px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px;
+    text-align:center;
+  }
+  .modal-stock-msg p{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;}
+  .modal-wa-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:#25D366;color:#fff;
+    font-size:13.5px;font-weight:700;
+    padding:11px 18px;border-radius:999px;
+    width:100%;
+    transition:background .2s var(--ease), transform .2s var(--ease);
+  }
+  .modal-wa-btn:hover{background:#1fb958;transform:translateY(-1px);}
+
+  @media (max-width:560px){
+    .product-modal{grid-template-columns:1fr;max-height:92vh;}
+    .modal-img-wrap{padding:14px;}
+    .modal-img{max-height:220px;}
+  }
+</style>
 </head>
 <body>
 
@@ -518,9 +625,9 @@
   </div>
 
   <nav class="nav-links">
-    <a href="#">Home</a>
+    <a href="index.html">Home</a>
     <a href="#" class="active">Beli iPhone</a>
-    <a href="#">Beli Mac</a>
+    <a href="macbook.html">Beli Mac</a>
     <a href="#">Aksesoris</a>
     <a href="#">Service</a>
     <a href="#">Blog</a>
@@ -944,7 +1051,7 @@
     <div class="footer-col">
       <h4>Hubungi Kami</h4>
       <ul>
-        <li><a href="#">WhatsApp</a></li>
+        <li><a href="https://wa.me/6282282828938">WhatsApp</a></li>
         <li><a href="#">Instagram</a></li>
         <li><a href="#">Lokasi Toko</a></li>
       </ul>
@@ -957,7 +1064,7 @@
 </footer>
 
 <!-- ================= WHATSAPP FLOAT ================= -->
-<a href="#" class="wa-float" aria-label="Chat WhatsApp">
+<a href="https://wa.me/6282282828938" class="wa-float" aria-label="Chat WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.52 0-10 4.48-10 10 0 1.77.46 3.43 1.27 4.88L2 22l5.25-1.38c1.4.76 3 1.18 4.79 1.18 5.52 0 10-4.48 10-10s-4.48-10-10-10zm5.84 14.13c-.25.7-1.45 1.34-2 1.42-.5.08-1.14.11-1.84-.12-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.18-4.93-4.37-.14-.19-1.18-1.57-1.18-3 0-1.42.74-2.12 1-2.41.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.25.6.84 2.07.91 2.22.07.15.12.33.02.53-.1.2-.16.32-.31.49-.15.17-.31.38-.45.51-.15.14-.3.3-.13.59.17.29.78 1.27 1.67 2.06 1.15 1.02 2.12 1.34 2.42 1.49.3.15.48.13.65-.05.18-.19.74-.85.94-1.14.2-.29.4-.24.67-.14.27.1 1.74.82 2.04.97.3.15.5.22.57.35.07.13.07.74-.18 1.44Z"/></svg>
 </a>
 
@@ -1071,6 +1178,124 @@
 
   filterToggleBtn.addEventListener('click', openDrawer);
   drawerOverlay.addEventListener('click', closeDrawer);
+</script>
+
+<!-- ===== TAMBAHAN FITUR: toast keranjang, modal produk, status stok ===== -->
+<script>
+(function(){
+
+  // ---------- toast notifikasi "Ditambahkan ke keranjang" ----------
+  var toast = document.createElement('div');
+  toast.className = 'toast-notif';
+  toast.id = 'cartToast';
+  document.body.appendChild(toast);
+  var toastTimer = null;
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+  }
+
+  document.querySelectorAll('.add-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      showToast('Ditambahkan ke keranjang');
+    });
+  });
+
+  // ---------- modal info produk ----------
+  var overlay = document.createElement('div');
+  overlay.className = 'product-modal-overlay';
+  overlay.id = 'productModalOverlay';
+  overlay.innerHTML =
+    '<div class="product-modal">' +
+      '<button class="modal-close" type="button" aria-label="Tutup">&times;</button>' +
+      '<div class="modal-img-wrap"><img class="modal-img" src="" alt=""></div>' +
+      '<div class="modal-info">' +
+        '<span class="modal-cat"></span>' +
+        '<h3 class="modal-name"></h3>' +
+        '<p class="modal-specs"></p>' +
+        '<div class="modal-price-row"><span class="modal-price"></span><span class="modal-price-old"></span></div>' +
+        '<button class="modal-buy-btn" type="button">Beli Sekarang</button>' +
+        '<div class="modal-stock-msg">' +
+          '<p>Barang belum ada</p>' +
+          '<a href="https://wa.me/6282282828938" class="modal-wa-btn" target="_blank" rel="noopener">Tanya WhatsApp</a>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  var modalImg = overlay.querySelector('.modal-img');
+  var modalCat = overlay.querySelector('.modal-cat');
+  var modalName = overlay.querySelector('.modal-name');
+  var modalSpecs = overlay.querySelector('.modal-specs');
+  var modalPrice = overlay.querySelector('.modal-price');
+  var modalPriceOld = overlay.querySelector('.modal-price-old');
+  var modalBuyBtn = overlay.querySelector('.modal-buy-btn');
+  var modalStockMsg = overlay.querySelector('.modal-stock-msg');
+  var modalCloseBtn = overlay.querySelector('.modal-close');
+
+  function openProductModal(card){
+    var img = card.querySelector('.card-media img');
+    var cat = card.querySelector('.card-cat');
+    var name = card.querySelector('.card-name');
+    var specs = card.querySelector('.card-specs');
+    var priceNow = card.querySelector('.price-now');
+    var priceOld = card.querySelector('.price-old');
+
+    modalImg.src = img ? img.src : '';
+    modalImg.alt = img ? img.alt : '';
+    modalCat.textContent = cat ? cat.textContent : '';
+    modalName.textContent = name ? name.textContent : '';
+    modalSpecs.textContent = specs ? specs.textContent : '';
+    modalPrice.textContent = priceNow ? priceNow.textContent : '';
+
+    if (priceOld){
+      modalPriceOld.textContent = priceOld.textContent;
+      modalPriceOld.style.display = '';
+    } else {
+      modalPriceOld.textContent = '';
+      modalPriceOld.style.display = 'none';
+    }
+
+    // reset ke kondisi awal setiap kali modal dibuka
+    modalBuyBtn.style.display = '';
+    modalStockMsg.classList.remove('show-stock');
+    modalStockMsg.style.display = 'none';
+
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProductModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.product-card').forEach(function(card){
+    card.addEventListener('click', function(e){
+      if (e.target.closest('.add-btn')) return; // jangan buka modal saat klik tombol tambah
+      openProductModal(card);
+    });
+  });
+
+  modalCloseBtn.addEventListener('click', closeProductModal);
+  overlay.addEventListener('click', function(e){
+    if (e.target === overlay) closeProductModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay.classList.contains('show')) closeProductModal();
+  });
+
+  // ---------- tombol "Beli Sekarang" -> info "Barang belum ada" + tombol WhatsApp ----------
+  modalBuyBtn.addEventListener('click', function(){
+    modalBuyBtn.style.display = 'none';
+    modalStockMsg.style.display = 'block';
+  });
+
+})();
 </script>
 
 </body>
